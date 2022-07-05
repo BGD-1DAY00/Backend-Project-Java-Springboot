@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  backendProject:
+    image: 'postgres:latest'
+    ports:
+      - 5434:5434
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: default
+    volumes:
+      - .db-data/:/var/lib/postgresql/data
