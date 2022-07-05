@@ -2,8 +2,9 @@ package com.example.backendproject;
 
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
 @RestController
+@CrossOrigin
+
 public class Home {
     @GetMapping("/")
     public String j(){
@@ -12,6 +13,7 @@ public class Home {
 
     @PostMapping("/login")
     public void login(@RequestBody Object j){
+        System.out.println("jdf");
         System.out.println(j.toString());
     }
 }
