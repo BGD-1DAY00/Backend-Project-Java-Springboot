@@ -79,7 +79,6 @@ public class UserEntity {
     }
 
     public UserEntity(){
-
     }
     public Boolean getAdmin() {
         return admin;

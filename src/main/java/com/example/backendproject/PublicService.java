@@ -72,14 +72,17 @@ public class PublicService {
         Optional<UserEntity> createdUser = userRespository.findByUsername(cred.getUsername());
         if (createdUser.isPresent()) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-//            return ;
         } else {
-            UserEntity user = new UserEntity(cred.getUsername(), cred.getPassword(), null);
-            user.setApplicant(cred.getApplicant());
-            user.setRecruiter(cred.getRecruiter());
-            user.setAdmin(cred.getAdmin());
+            UserEntity user = new UserEntity();
+            user.setUsername(cred.getUsername());
+            user.setPassword(cred.getPassword());
+            if (cred.getApplicant().equals(true))
+                user.setApplicant(true);
+            user.setRecruiter(cred.getRecruiter().booleanValue());
+            user.setAdmin(cred.getAdmin().booleanValue());
+            System.out.println(cred.getApplicant().getClass());
+            userRespository.save(user);
             return token;
         }
-
     }
 }
