@@ -5,6 +5,8 @@ import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @CrossOrigin
 
@@ -23,9 +25,12 @@ public class Controller {
     }
 
     @PostMapping(
-            value ="/login", consumes = {MediaType.APPLICATION_JSON_VALUE}
+            value ="/login",
+            consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+
     )
-    public void login(@RequestBody UserEntity user){
-        publicService.AddUser(user);
+    public UUID login(@RequestBody UserEntity user){
+        return publicService.AddUser(user);
     }
 }

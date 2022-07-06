@@ -5,19 +5,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PublicService {
 
     private UserRespository userRespository;
 
+    //key value pair
+    private HashMap<UUID, Long> tokenMap;
+
+
     @Autowired
     public PublicService(@NonNull UserRespository userRespository){
         this.userRespository = userRespository;
+        this.tokenMap = new HashMap<>();
     }
+    //Who is logged in?
+    // token: usually stored in our browser, we are not
+    // in every interaction we need to send the token and receive the token
 
-    public void AddUser( UserEntity cred){
+    // token is disposed, my  apologies
+
+
+    public UUID AddUser( UserEntity cred){
             //if they exist
                 // reassign the role of the user, if they signed in as a recruiter the first time...
                 // and then the second time sign in as an admin then we also set that value to true
@@ -29,8 +42,13 @@ public class PublicService {
                 createdUser.get().setRecruiter(true);
             if(cred.getRole().equals("admin"))
                 createdUser.get().setAdmin(true);
+            final UUID token = UUID.randomUUID();
+            // key is our token : value is our id of type long
+            tokenMap.put(token, userRespository.findByUsername(createdUser.get().getUsername()).get().getId());
             userRespository.save(createdUser.get());
+            return token;
         }
+        //john : applicant: true
         else {
             //if they don't exist
             // set the role that they have defined
@@ -42,6 +60,9 @@ public class PublicService {
             if(user.getRole().equals("admin"))
                 user.setAdmin(true);
             userRespository.save(user);
+            final UUID token = UUID.randomUUID();
+            tokenMap.put(token, userRespository.findByUsername(user.getUsername()).get().getId());
+            return token;
         }
     }
 
