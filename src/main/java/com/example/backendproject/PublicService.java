@@ -6,6 +6,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -64,7 +65,7 @@ public class PublicService {
             tokenMap.put(token, userRespository.findByUsername(user.getUsername()).get().getId());
             return token;
         }
-        //new method
+
     }
 
 //    private void setRoles(UserEntity user, String role) {
@@ -75,4 +76,9 @@ public class PublicService {
 //        if(role.equals("admin"))
 //            user.setAdmin(true);
 //    }
+
+    public List<UserEntity> displayUserList () {
+        List<UserEntity> userList = (List<UserEntity>) userRespository.findAll();
+        return userList;
+    }
 }

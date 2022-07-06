@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -32,5 +33,10 @@ public class Controller {
     )
     public UUID login(@RequestBody UserEntity user){
         return publicService.AddUser(user);
+    }
+
+    @GetMapping("/getUserList")
+    public List<UserEntity> displayUserList () {
+        return publicService.displayUserList();
     }
 }
