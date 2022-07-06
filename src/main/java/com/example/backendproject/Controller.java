@@ -9,7 +9,6 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin
-
 public class Controller {
 
     private PublicService publicService;
@@ -32,5 +31,14 @@ public class Controller {
     )
     public UUID login(@RequestBody UserEntity user){
         return publicService.AddUser(user);
+    }
+
+    @PostMapping(
+        value = "/createuser",
+        consumes = {MediaType.APPLICATION_JSON_VALUE},
+        produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public String adminCreateUser(@RequestBody UserEntity user, @RequestParam String token) {
+        return publicService.AdminAddUser(user, token);
     }
 }
