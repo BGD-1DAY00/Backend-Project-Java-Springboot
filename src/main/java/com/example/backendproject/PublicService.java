@@ -64,6 +64,7 @@ public class PublicService {
             tokenMap.put(token, userRespository.findByUsername(user.getUsername()).get().getId());
             return token;
         }
+        //new method
     }
 
 //    private void setRoles(UserEntity user, String role) {
