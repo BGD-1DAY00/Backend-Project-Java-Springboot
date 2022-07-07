@@ -37,6 +37,7 @@ public class Controller {
 
     @GetMapping("/getUserList")
     public List<UserEntity> displayUserList () {
+
         return publicService.displayUserList();
     }
 }
