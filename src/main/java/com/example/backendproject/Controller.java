@@ -39,7 +39,7 @@ public class Controller {
     public List<UserEntity> displayUserList () {
 
         return publicService.displayUserList();
-
+    }
     @PostMapping(
         value = "/createUser",
         consumes = {MediaType.APPLICATION_JSON_VALUE},
