@@ -70,6 +70,16 @@ public class PublicService {
 
     }
 
+    public void AdminDeleteUser(String user) {
+        Optional<UserEntity> result = userRespository.findByUsername(user);
+        if (result.isPresent()) {
+            userRespository.deleteById(result.get().getId());
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
 
 
     public List<UserEntity> displayUserList () {

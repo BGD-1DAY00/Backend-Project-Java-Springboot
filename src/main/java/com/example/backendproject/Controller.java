@@ -50,4 +50,11 @@ public class Controller {
         publicService.AdminAddUser(cred, token);
 
     }
+
+    @DeleteMapping(
+            value = "/deleteUser/{user}"
+    )
+    public void adminDeleteUser(@PathVariable String user) {
+        publicService.AdminDeleteUser(user);
+    }
 }
