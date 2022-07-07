@@ -16,14 +16,16 @@ import java.util.UUID;
 public class PublicService {
 
     private UserRespository userRespository;
+    private QuizRepository quizRepository;
 
     //key value pair
     private HashMap<UUID, Long> tokenMap;
 
 
     @Autowired
-    public PublicService(@NonNull UserRespository userRespository){
+    public PublicService(@NonNull UserRespository userRespository, QuizRepository quizRepository){
         this.userRespository = userRespository;
+        this.quizRepository = quizRepository;
         this.tokenMap = new HashMap<>();
     }
     //Who is logged in?
@@ -89,5 +91,15 @@ public class PublicService {
             userRespository.save(user);
         }
 
+    }
+
+    public void CreateQuiz(QuizEntity quiz) {
+        Optional<QuizEntity> createdQuiz = quizRepository.findByQuizQuestionAndApplicant(quiz.getQuizQuestion(), quiz.getApplicant());
+        if (createdQuiz.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        } else {
+            QuizEntity newQuiz = new QuizEntity(quiz.getQuizQuestion(), quiz.getApplicant(), quiz.isFinished(), quiz.getGrade());
+            quizRepository.save(newQuiz);
+        }
     }
 }

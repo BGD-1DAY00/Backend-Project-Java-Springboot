@@ -45,8 +45,20 @@ public class Controller {
         consumes = {MediaType.APPLICATION_JSON_VALUE},
         produces = {MediaType.APPLICATION_JSON_VALUE}
     )
+
     public void adminCreateUser(@RequestBody UserEntity cred, @RequestParam String token) {
         publicService.AdminAddUser(cred, token);
 
+    }
+
+    @PostMapping(
+        value = "/createQuiz",
+        consumes = {MediaType.APPLICATION_JSON_VALUE},
+        produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+
+    public void createQuiz(@RequestBody QuizEntity quiz) {
+        publicService.CreateQuiz(quiz);
+        System.out.println(quiz.getQuizQuestion());
     }
 }
