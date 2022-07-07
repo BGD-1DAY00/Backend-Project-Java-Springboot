@@ -75,7 +75,7 @@ public class PublicService {
     public List<UserEntity> displayUserList () {
         List<UserEntity> userList = (List<UserEntity>) userRespository.findAll();
         return userList;
-
+    }
     public void AdminAddUser(UserEntity cred, String token) {
         Optional<UserEntity> createdUser = userRespository.findByUsername(cred.getUsername());
         if (createdUser.isPresent()) {
