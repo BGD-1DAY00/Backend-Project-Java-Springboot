@@ -34,11 +34,11 @@ public class Controller {
     }
 
     @PostMapping(
-        value = "/createuser",
+        value = "/createUser",
         consumes = {MediaType.APPLICATION_JSON_VALUE},
         produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public String adminCreateUser(@RequestBody UserEntity user, @RequestParam String token) {
-        return publicService.AdminAddUser(user, token);
+    public void adminCreateUser(@RequestBody UserEntity cred, @RequestParam String token) {
+        publicService.AdminAddUser(cred, token);
     }
 }
