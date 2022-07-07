@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -66,7 +67,14 @@ public class PublicService {
             tokenMap.put(token, userRespository.findByUsername(user.getUsername()).get().getId());
             return token;
         }
+
     }
+
+
+
+    public List<UserEntity> displayUserList () {
+        List<UserEntity> userList = (List<UserEntity>) userRespository.findAll();
+        return userList;
 
     public void AdminAddUser(UserEntity cred, String token) {
         Optional<UserEntity> createdUser = userRespository.findByUsername(cred.getUsername());
@@ -79,5 +87,6 @@ public class PublicService {
             user.setAdmin(cred.getAdmin());
             userRespository.save(user);
         }
+
     }
 }
