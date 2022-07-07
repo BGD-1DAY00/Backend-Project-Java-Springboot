@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@Data //implicitly creates all getters and setter
-@NoArgsConstructor //creates no arg constructor
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -28,6 +26,8 @@ public class UserEntity {
         this.username = username;
         this.password = password;
         this.role = role;
+    }
+    public UserEntity(){
     }
 
     public Long getId() {
@@ -78,9 +78,6 @@ public class UserEntity {
         this.recruiter = recruiter;
     }
 
-    public UserEntity(){
-
-    }
     public Boolean getAdmin() {
         return admin;
     }
@@ -88,17 +85,5 @@ public class UserEntity {
     public void setAdmin(Boolean admin) {
         this.admin = admin;
     }
-//All setters and Getters are generated via the @Data annotation
 
-//    public void setApplicant(Boolean applicant) {
-//        this.applicant = applicant;
-//    }
-//
-//    public void setRecruiter(Boolean recruiter) {
-//        this.recruiter = recruiter;
-//    }
-//
-//    public void setAdmin(Boolean admin) {
-//        this.admin = admin;
-//    }
 };
