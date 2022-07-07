@@ -28,7 +28,6 @@ public class Controller {
             value ="/login",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
-
     )
     public UUID login(@RequestBody UserEntity user){
         return publicService.AddUser(user);
@@ -56,5 +55,12 @@ public class Controller {
     )
     public void adminDeleteUser(@PathVariable String user) {
         publicService.AdminDeleteUser(user);
+    }
+
+    @PutMapping(
+            value="/editUser/{user}"
+    )
+    public void adminEditUser(@RequestBody UserEntity userObject, @PathVariable String user){
+        publicService.editUser(userObject, user);
     }
 }
