@@ -2,8 +2,10 @@ package com.example.backendproject;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -68,17 +70,23 @@ public class PublicService {
 
     }
 
-//    private void setRoles(UserEntity user, String role) {
-//        if(role.equals("applicant"))
-//            user.setApplicant(true);
-//        if(role.equals("recruiter"))
-//            user.setRecruiter(true);
-//        if(role.equals("admin"))
-//            user.setAdmin(true);
-//    }
+
 
     public List<UserEntity> displayUserList () {
         List<UserEntity> userList = (List<UserEntity>) userRespository.findAll();
         return userList;
+
+    public void AdminAddUser(UserEntity cred, String token) {
+        Optional<UserEntity> createdUser = userRespository.findByUsername(cred.getUsername());
+        if (createdUser.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        } else {
+            UserEntity user = new UserEntity(cred.getUsername(), cred.getPassword(), null);
+            user.setApplicant(cred.getApplicant());
+            user.setRecruiter(cred.getRecruiter());
+            user.setAdmin(cred.getAdmin());
+            userRespository.save(user);
+        }
+
     }
 }
