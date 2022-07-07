@@ -61,4 +61,9 @@ public class Controller {
         publicService.CreateQuiz(quiz);
         System.out.println(quiz.getQuizQuestion());
     }
+
+    @GetMapping("/getQuizList")
+    public List<QuizEntity> displayQuizList (){
+        return publicService.displayQuizList();
+    }
 }

@@ -102,4 +102,9 @@ public class PublicService {
             quizRepository.save(newQuiz);
         }
     }
+
+    public List<QuizEntity> displayQuizList () {
+        List<QuizEntity> quizList = (List<QuizEntity>) quizRepository.findAll();
+        return quizList;
+    }
 }
