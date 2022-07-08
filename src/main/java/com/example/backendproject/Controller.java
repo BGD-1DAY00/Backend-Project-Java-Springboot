@@ -83,9 +83,26 @@ public class Controller {
 
     }
 
+
+    @PutMapping(
+            value="/editQuiz/{id}"
+    )
+    public void editQuiz(@RequestBody QuizEntity quizObj, @PathVariable Long id) {
+        publicService.editQuiz(quizObj, id);
+    }
+
+    @DeleteMapping(
+            value="/deleteQuiz/{id}"
+    )
+    public void deleteQuiz(@PathVariable Long id) {
+        publicService.deleteQuiz(id);
+    }
+
+
     @GetMapping("/impersonateUser")
     public Boolean adminImpersonateUser(@RequestParam String username, String role) {
         System.out.println(username + " " + role);
         return publicService.AdminImpersonateUser(username, role);
     }
+
 }

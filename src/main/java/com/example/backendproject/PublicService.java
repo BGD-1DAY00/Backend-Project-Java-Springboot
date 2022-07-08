@@ -149,4 +149,24 @@ public class PublicService {
     }
 
 
+    public void editQuiz(QuizEntity quizObj, Long id) {
+        quizRepository.findById(id).map(e -> {
+            e.setQuizQuestion(quizObj.getQuizQuestion());
+            e.setApplicant(quizObj.getApplicant());
+            e.setGrade(quizObj.getGrade());
+            e.setFinished(quizObj.isFinished());
+            return quizRepository.save(e);
+        });
+    }
+
+    public void deleteQuiz (Long id) {
+        Optional<QuizEntity> result = quizRepository.findById(id);
+        if (result.isPresent()) {
+            quizRepository.deleteById(result.get().getId());
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
 }

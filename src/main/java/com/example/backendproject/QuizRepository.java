@@ -8,4 +8,5 @@ import java.util.Optional;
 @Repository
 public interface QuizRepository extends CrudRepository <QuizEntity, Long>{
     Optional<QuizEntity> findByQuizQuestionAndApplicant (String quizQuestion, String applicant);
+    Optional<QuizEntity> findById(Long id);
 }
