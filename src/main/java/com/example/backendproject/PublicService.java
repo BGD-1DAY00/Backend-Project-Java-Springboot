@@ -70,12 +70,46 @@ public class PublicService {
 
     }
 
+    public void AdminDeleteUser(String user) {
+        Optional<UserEntity> result = userRespository.findByUsername(user);
+        if (result.isPresent()) {
+            userRespository.deleteById(result.get().getId());
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    public void editUser(UserEntity user, String username){
+         userRespository.findByUsername(username).map(e -> {
+                e.setUsername(user.getUsername());
+                e.setPassword(user.getPassword());
+                e.setApplicant(user.getApplicant());
+                e.setRecruiter(user.getRecruiter());
+                e.setAdmin(user.getAdmin());
+                return userRespository.save(e);
+            });
+
+//        if(result.isPresent()){
+//            result.get().setUsername(user.getUsername());
+//            result.get().setPassword(user.getPassword());
+//            result.get().setAdmin(user.getAdmin());
+//            result.get().setRecruiter(user.getRecruiter());
+//            result.get().setApplicant(user.getApplicant());
+//            userRespository.save(result.get());
+//        }
+//            else{
+//                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+//            }
+
+    }
+
 
 
     public List<UserEntity> displayUserList () {
         List<UserEntity> userList = (List<UserEntity>) userRespository.findAll();
         return userList;
-
+    }
     public void AdminAddUser(UserEntity cred, String token) {
         Optional<UserEntity> createdUser = userRespository.findByUsername(cred.getUsername());
         if (createdUser.isPresent()) {
