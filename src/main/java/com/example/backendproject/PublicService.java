@@ -132,12 +132,12 @@ public class PublicService {
         return quizList;
     }
 
-    public void editQuiz(QuizEntity quiz, String quizQuestion, String applicant) {
-        quizRepository.findByQuizQuestionAndApplicant(quizQuestion, applicant).map(e -> {
-            e.setQuizQuestion(quiz.getQuizQuestion());
-            e.setApplicant(quiz.getApplicant());
-            e.setGrade(quiz.getGrade());
-            e.setFinished(quiz.isFinished());
+    public void editQuiz(QuizEntity quizObj, Long id) {
+        quizRepository.findById(id).map(e -> {
+            e.setQuizQuestion(quizObj.getQuizQuestion());
+            e.setApplicant(quizObj.getApplicant());
+            e.setGrade(quizObj.getGrade());
+            e.setFinished(quizObj.isFinished());
             return quizRepository.save(e);
         });
     }

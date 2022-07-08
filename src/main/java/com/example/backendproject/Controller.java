@@ -84,10 +84,10 @@ public class Controller {
     }
 
     @PutMapping(
-            value="/editQuiz/{quizQuestion}&{applicant}"
+            value="/editQuiz/{id}"
     )
-    public void editQuiz(@RequestBody QuizEntity quiz, @PathVariable String quizQuestion, @PathVariable String applicant) {
-        publicService.editQuiz(quiz, quizQuestion, applicant);
+    public void editQuiz(@RequestBody QuizEntity quizObj, @PathVariable Long id) {
+        publicService.editQuiz(quizObj, id);
     }
 
 
