@@ -90,6 +90,11 @@ public class Controller {
         publicService.editQuiz(quizObj, id);
     }
 
-
+    @DeleteMapping(
+            value="/deleteQuiz/{id}"
+    )
+    public void deleteQuiz(@PathVariable Long id) {
+        publicService.deleteQuiz(id);
+    }
 
 }

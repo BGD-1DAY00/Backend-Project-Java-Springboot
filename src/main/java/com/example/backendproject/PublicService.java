@@ -141,4 +141,14 @@ public class PublicService {
             return quizRepository.save(e);
         });
     }
+
+    public void deleteQuiz (Long id) {
+        Optional<QuizEntity> result = quizRepository.findById(id);
+        if (result.isPresent()) {
+            quizRepository.deleteById(result.get().getId());
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+    }
 }
