@@ -117,6 +117,22 @@ public class PublicService {
 
     }
 
+    public Boolean AdminImpersonateUser(String username, String role) {
+        Optional<UserEntity> response = userRespository.findByUsername(username);
+        if (response.isPresent()) {
+            if (role.equals("admin") && response.get().getAdmin().equals(true)) {
+                return true;
+            } else if (role.equals("recruiter") && response.get().getRecruiter().equals(true)) {
+                return true;
+            } else if (role.equals("applicant") && response.get().getApplicant().equals(true)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+    }
+
     public void CreateQuiz(QuizEntity quiz) {
         Optional<QuizEntity> createdQuiz = quizRepository.findByQuizQuestionAndApplicant(quiz.getQuizQuestion(), quiz.getApplicant());
         if (createdQuiz.isPresent()) {
@@ -131,6 +147,7 @@ public class PublicService {
         List<QuizEntity> quizList = (List<QuizEntity>) quizRepository.findAll();
         return quizList;
     }
+
 
     public void editQuiz(QuizEntity quizObj, Long id) {
         quizRepository.findById(id).map(e -> {
@@ -151,4 +168,5 @@ public class PublicService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
     }
+
 }

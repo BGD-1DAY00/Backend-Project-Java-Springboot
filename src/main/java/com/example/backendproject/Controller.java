@@ -83,6 +83,7 @@ public class Controller {
 
     }
 
+
     @PutMapping(
             value="/editQuiz/{id}"
     )
@@ -95,6 +96,13 @@ public class Controller {
     )
     public void deleteQuiz(@PathVariable Long id) {
         publicService.deleteQuiz(id);
+    }
+
+
+    @GetMapping("/impersonateUser")
+    public Boolean adminImpersonateUser(@RequestParam String username, String role) {
+        System.out.println(username + " " + role);
+        return publicService.AdminImpersonateUser(username, role);
     }
 
 }
