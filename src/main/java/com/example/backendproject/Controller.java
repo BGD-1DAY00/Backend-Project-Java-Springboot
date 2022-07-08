@@ -64,8 +64,9 @@ public class Controller {
     }
 
     @GetMapping("/getQuizList")
-    public List<QuizEntity> displayQuizList (){
+    public List<QuizEntity> displayQuizList () {
         return publicService.displayQuizList();
+    }
 
     @DeleteMapping(
             value = "/deleteUser/{user}"

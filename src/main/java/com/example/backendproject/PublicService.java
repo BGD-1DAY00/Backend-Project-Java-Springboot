@@ -91,19 +91,6 @@ public class PublicService {
                 e.setAdmin(user.getAdmin());
                 return userRespository.save(e);
             });
-
-//        if(result.isPresent()){
-//            result.get().setUsername(user.getUsername());
-//            result.get().setPassword(user.getPassword());
-//            result.get().setAdmin(user.getAdmin());
-//            result.get().setRecruiter(user.getRecruiter());
-//            result.get().setApplicant(user.getApplicant());
-//            userRespository.save(result.get());
-//        }
-//            else{
-//                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-//            }
-
     }
 
 
