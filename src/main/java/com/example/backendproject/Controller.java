@@ -82,4 +82,14 @@ public class Controller {
         publicService.editUser(userObject, user);
 
     }
+
+    @PutMapping(
+            value="/editQuiz/{quizQuestion}&{applicant}"
+    )
+    public void editQuiz(@RequestBody QuizEntity quiz, @PathVariable String quizQuestion, @PathVariable String applicant) {
+        publicService.editQuiz(quiz, quizQuestion, applicant);
+    }
+
+
+
 }

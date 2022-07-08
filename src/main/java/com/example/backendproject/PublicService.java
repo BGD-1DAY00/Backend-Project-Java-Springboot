@@ -131,4 +131,14 @@ public class PublicService {
         List<QuizEntity> quizList = (List<QuizEntity>) quizRepository.findAll();
         return quizList;
     }
+
+    public void editQuiz(QuizEntity quiz, String quizQuestion, String applicant) {
+        quizRepository.findByQuizQuestionAndApplicant(quizQuestion, applicant).map(e -> {
+            e.setQuizQuestion(quiz.getQuizQuestion());
+            e.setApplicant(quiz.getApplicant());
+            e.setGrade(quiz.getGrade());
+            e.setFinished(quiz.isFinished());
+            return quizRepository.save(e);
+        });
+    }
 }
