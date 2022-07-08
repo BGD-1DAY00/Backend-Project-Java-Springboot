@@ -28,7 +28,6 @@ public class Controller {
             value ="/login",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
-
     )
     public UUID login(@RequestBody UserEntity user){
         return publicService.AddUser(user);
@@ -40,6 +39,7 @@ public class Controller {
 
         return publicService.displayUserList();
     }
+
     @PostMapping(
         value = "/createUser",
         consumes = {MediaType.APPLICATION_JSON_VALUE},
@@ -50,6 +50,7 @@ public class Controller {
         publicService.AdminAddUser(cred, token);
 
     }
+
 
     @PostMapping(
         value = "/createQuiz",
@@ -65,5 +66,19 @@ public class Controller {
     @GetMapping("/getQuizList")
     public List<QuizEntity> displayQuizList (){
         return publicService.displayQuizList();
+
+    @DeleteMapping(
+            value = "/deleteUser/{user}"
+    )
+    public void adminDeleteUser(@PathVariable String user) {
+        publicService.AdminDeleteUser(user);
+    }
+
+    @PutMapping(
+            value="/editUser/{user}"
+    )
+    public void adminEditUser(@RequestBody UserEntity userObject, @PathVariable String user){
+        publicService.editUser(userObject, user);
+
     }
 }
