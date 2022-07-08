@@ -168,5 +168,15 @@ public class PublicService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
     }
+//
+    public UserEntity findAndReturnUser(String token){
+        Long userId = tokenMap.get(token);
+        Optional<UserEntity> user = userRespository.findById(userId);
+        if(user.isPresent()) {
+            return user.get();
+        }else{
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+    }
 
 }

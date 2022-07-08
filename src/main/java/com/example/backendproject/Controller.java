@@ -105,4 +105,9 @@ public class Controller {
         return publicService.AdminImpersonateUser(username, role);
     }
 
+    // no longer nessary use teh cuurent user property in the front end in teh applicant.js
+    @GetMapping("/findUser")
+    public UserEntity findUser(@RequestParam String token){
+        return publicService.findAndReturnUser(token);
+    }
 }
