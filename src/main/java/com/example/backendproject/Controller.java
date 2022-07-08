@@ -45,10 +45,27 @@ public class Controller {
         consumes = {MediaType.APPLICATION_JSON_VALUE},
         produces = {MediaType.APPLICATION_JSON_VALUE}
     )
+
     public void adminCreateUser(@RequestBody UserEntity cred, @RequestParam String token) {
         publicService.AdminAddUser(cred, token);
 
     }
+
+
+    @PostMapping(
+        value = "/createQuiz",
+        consumes = {MediaType.APPLICATION_JSON_VALUE},
+        produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+
+    public void createQuiz(@RequestBody QuizEntity quiz) {
+        publicService.CreateQuiz(quiz);
+        System.out.println(quiz.getQuizQuestion());
+    }
+
+    @GetMapping("/getQuizList")
+    public List<QuizEntity> displayQuizList (){
+        return publicService.displayQuizList();
 
     @DeleteMapping(
             value = "/deleteUser/{user}"
@@ -62,5 +79,6 @@ public class Controller {
     )
     public void adminEditUser(@RequestBody UserEntity userObject, @PathVariable String user){
         publicService.editUser(userObject, user);
+
     }
 }

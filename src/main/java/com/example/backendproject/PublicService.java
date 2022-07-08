@@ -16,14 +16,16 @@ import java.util.UUID;
 public class PublicService {
 
     private UserRespository userRespository;
+    private QuizRepository quizRepository;
 
     //key value pair
     private HashMap<UUID, Long> tokenMap;
 
 
     @Autowired
-    public PublicService(@NonNull UserRespository userRespository){
+    public PublicService(@NonNull UserRespository userRespository, QuizRepository quizRepository){
         this.userRespository = userRespository;
+        this.quizRepository = quizRepository;
         this.tokenMap = new HashMap<>();
     }
     //Who is logged in?
@@ -110,6 +112,10 @@ public class PublicService {
         List<UserEntity> userList = (List<UserEntity>) userRespository.findAll();
         return userList;
     }
+
+
+
+
     public void AdminAddUser(UserEntity cred, String token) {
         Optional<UserEntity> createdUser = userRespository.findByUsername(cred.getUsername());
         if (createdUser.isPresent()) {
@@ -122,5 +128,20 @@ public class PublicService {
             userRespository.save(user);
         }
 
+    }
+
+    public void CreateQuiz(QuizEntity quiz) {
+        Optional<QuizEntity> createdQuiz = quizRepository.findByQuizQuestionAndApplicant(quiz.getQuizQuestion(), quiz.getApplicant());
+        if (createdQuiz.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        } else {
+            QuizEntity newQuiz = new QuizEntity(quiz.getQuizQuestion(), quiz.getApplicant(), quiz.isFinished(), quiz.getGrade());
+            quizRepository.save(newQuiz);
+        }
+    }
+
+    public List<QuizEntity> displayQuizList () {
+        List<QuizEntity> quizList = (List<QuizEntity>) quizRepository.findAll();
+        return quizList;
     }
 }

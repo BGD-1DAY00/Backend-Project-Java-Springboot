@@ -1,13 +1,25 @@
+#virtual machine - a pretend computer
+#container - a pretend computer - that is based on the existing computer that is running it
+#docker - an easy to manage a container
+#docker-compose - an easy way to manage multiple docker containers
+#version 3 of docker-compose
 version: '3'
 
+#list of containers (a service means a container
 services:
-  backendProject:
+  #The name of this service
+  db_backendProject_1:
+    #file - an entry in a filesystem that stores data
+    #filesystem - a way to store files on a harddrive
+    #image - a file representation of a filesystem
     image: 'postgres:latest'
+    #now we can access localhost:5432 -> contaioner:5432 -> postres
     ports:
       - 5432:5432
     environment:
       POSTGRES_USER: username
       POSTGRES_PASSWORD: password
       POSTGRES_DB: default
+    #map a folder on our computer to a folder on the container
     volumes:
-      - .db-data/:/var/lib/postgresql/data
+      - ./db-data/:/var/lib/postgresql/data/
