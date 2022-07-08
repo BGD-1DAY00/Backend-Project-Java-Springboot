@@ -82,4 +82,10 @@ public class Controller {
         publicService.editUser(userObject, user);
 
     }
+
+    @GetMapping("/impersonateUser")
+    public Boolean adminImpersonateUser(@RequestParam String username, String role) {
+        System.out.println(username + " " + role);
+        return publicService.AdminImpersonateUser(username, role);
+    }
 }
