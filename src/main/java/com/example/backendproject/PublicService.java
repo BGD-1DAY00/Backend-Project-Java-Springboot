@@ -83,7 +83,8 @@ public class PublicService {
     }
 
     public void editUser(UserEntity user, String username){
-         userRespository.findByUsername(username).map(e -> {
+        if (userRespository.findByUsername(user.getUsername()).isEmpty()) {
+            userRespository.findByUsername(username).map(e -> {
                 e.setUsername(user.getUsername());
                 e.setPassword(user.getPassword());
                 e.setApplicant(user.getApplicant());
@@ -91,6 +92,9 @@ public class PublicService {
                 e.setAdmin(user.getAdmin());
                 return userRespository.save(e);
             });
+        } else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
     }
 
 
