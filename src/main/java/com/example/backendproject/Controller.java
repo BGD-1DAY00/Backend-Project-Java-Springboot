@@ -92,10 +92,10 @@ public class Controller {
     }
 
     @PutMapping(
-            value="/answerQuiz/{id}"
+            value="/answerQuiz/{questionID}"
     )
-    public void answerQuiz(@RequestBody QuizEntity quizObj, @PathVariable Long id) {
-        publicService.answerQuiz(quizObj, id);
+    public void answerQuiz(@RequestBody String quizAnswer, @PathVariable Long questionID) {
+        publicService.answerQuiz(quizAnswer, questionID);
     }
 
     @DeleteMapping(

@@ -163,9 +163,10 @@ public class PublicService {
         });
     }
 
-    public void answerQuiz(QuizEntity quizObj, Long id) {
-        quizRepository.findById(id).map(e -> {
-            e.setQuizAnswer(quizObj.getQuizAnswer());
+    public void answerQuiz(String quizAnswer, Long questionID) {
+        quizRepository.findById(questionID).map(e -> {
+            e.setQuizAnswer(quizAnswer);
+            e.setFinished(true);
             return quizRepository.save(e);
         });
     }
