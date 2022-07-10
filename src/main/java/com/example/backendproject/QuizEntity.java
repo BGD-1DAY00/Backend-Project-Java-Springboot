@@ -12,12 +12,15 @@ public class QuizEntity {
     private Long Id;
 
     private String quizQuestion;
+
+    private String quizAnswer;
     private String applicant;
     private boolean finished;
     private String grade;
 
-    public QuizEntity(String quizQuestion, String applicant, boolean finished, String grade) {
+    public QuizEntity(String quizQuestion, String quizAnswer, String applicant, boolean finished, String grade) {
         this.quizQuestion = quizQuestion;
+        this.quizAnswer = quizAnswer;
         this.applicant = applicant;
         this.finished = finished;
         this.grade = grade;
@@ -36,6 +39,10 @@ public class QuizEntity {
     public void setQuizQuestion(String question) {
         this.quizQuestion = question;
     }
+
+    public String getQuizAnswer() { return quizAnswer; }
+
+    public void setQuizAnswer(String quizAnswer) { this.quizAnswer = quizAnswer; }
 
     public String getApplicant() {
         return applicant;

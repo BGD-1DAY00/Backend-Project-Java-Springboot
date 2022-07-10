@@ -91,6 +91,13 @@ public class Controller {
         publicService.editQuiz(quizObj, id);
     }
 
+    @PutMapping(
+            value="/answerQuiz/{id}"
+    )
+    public void answerQuiz(@RequestBody QuizEntity quizObj, @PathVariable Long id) {
+        publicService.answerQuiz(quizObj, id);
+    }
+
     @DeleteMapping(
             value="/deleteQuiz/{id}"
     )

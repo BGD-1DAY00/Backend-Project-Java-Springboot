@@ -142,7 +142,7 @@ public class PublicService {
         if (createdQuiz.isPresent()) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         } else {
-            QuizEntity newQuiz = new QuizEntity(quiz.getQuizQuestion(), quiz.getApplicant(), quiz.isFinished(), quiz.getGrade());
+            QuizEntity newQuiz = new QuizEntity(quiz.getQuizQuestion(), quiz.getQuizAnswer(), quiz.getApplicant(), quiz.isFinished(), quiz.getGrade());
             quizRepository.save(newQuiz);
         }
     }
@@ -159,6 +159,13 @@ public class PublicService {
             e.setApplicant(quizObj.getApplicant());
             e.setGrade(quizObj.getGrade());
             e.setFinished(quizObj.isFinished());
+            return quizRepository.save(e);
+        });
+    }
+
+    public void answerQuiz(QuizEntity quizObj, Long id) {
+        quizRepository.findById(id).map(e -> {
+            e.setQuizAnswer(quizObj.getQuizAnswer());
             return quizRepository.save(e);
         });
     }
