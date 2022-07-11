@@ -7,6 +7,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -72,10 +73,12 @@ public class PublicService {
 
     }
 
+    @Transactional
     public void AdminDeleteUser(String user) {
         Optional<UserEntity> result = userRespository.findByUsername(user);
         if (result.isPresent()) {
             userRespository.deleteById(result.get().getId());
+            quizRepository.deleteAllByApplicant(result.get().getUsername());
         }
         else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
